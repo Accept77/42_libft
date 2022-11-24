@@ -6,7 +6,7 @@
 /*   By: jinsyang <jinsyang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 15:30:39 by jinsyang          #+#    #+#             */
-/*   Updated: 2022/11/22 15:42:28 by jinsyang         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:08:10 by jinsyang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	ft_putendl_fd(char *s, int fd)
 {
 	write(fd, s, ft_strlen(s));
-	write(1, "\n", 1);
+	write(fd, "\n", 1);
 }

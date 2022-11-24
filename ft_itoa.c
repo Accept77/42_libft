@@ -6,7 +6,7 @@
 /*   By: jinsyang <jinsyang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:16:02 by jinsyang          #+#    #+#             */
-/*   Updated: 2022/11/21 19:03:27 by jinsyang         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:00:31 by jinsyang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	*ft_itoa(int n)
 	int		tmp;
 
 	len = 0;
+	flag = 0;
 	tmp = ft_is_min(n, &flag);
 	len = ft_len(tmp);
 	if (flag == 1 || flag == 2 || tmp == 0)

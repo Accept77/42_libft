@@ -5,9 +5,9 @@
 
 int	main(void)
 {
-	char *str = "aaabbbaaddeaae";
-	char *set = "ae";
-	char *re = ft_strtrim(str, set);
+//	char *str = "aaabbbaaddeaae";
+//	char *set = "ae";
+	char *re = ft_itoa(156);;
 	size_t i = 0;
 	printf("%s\n",re);
 	while (re[i])
