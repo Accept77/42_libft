@@ -6,7 +6,7 @@
 /*   By: jinsyang <jinsyang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:19:15 by jinsyang          #+#    #+#             */
-/*   Updated: 2022/11/21 16:23:27 by jinsyang         ###   ########.fr       */
+/*   Updated: 2022/11/28 13:27:23 by jinsyang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	ft_fill(char const *s, char c, char **result, size_t *flag)
 			result[index] = (char *)malloc(sizeof(char) * (j + 1));
 			if (!(result[index]))
 				*flag = ft_free(result, index);
-			ft_memcpy(result[index], s + i, j);
+			ft_strlcpy(result[index], s + i, j + 1);
 			i += j;
 			index++;
 		}
