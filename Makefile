@@ -6,7 +6,7 @@
 #    By: jinsyang <jinsyang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 17:31:22 by jinsyang          #+#    #+#              #
-#    Updated: 2022/11/23 12:41:03 by jinsyang         ###   ########.fr        #
+#    Updated: 2022/11/28 18:58:07 by jinsyang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = ft_atoi.c \
+SRC_M = ft_atoi.c \
 	  ft_bzero.c \
 	  ft_calloc.c \
 	  ft_isalnum.c \
@@ -51,24 +51,39 @@ SRC = ft_atoi.c \
 	  ft_tolower.c \
 	  ft_toupper.c
 
-OBJECT = $(SRC:.c=.o)
+SRC_B = ft_lstnew_bonus.c
+
+OBJ_M = $(SRC_M:.c=.o)
+
+OBJ_B = $(SRC_B:.c=.o)
 
 INCLUDE = ./libft.h
 
-.c.o:
-	$(CC) -c $(CFLAGS) $< -o $(<:.c=.o) -I $(INCLUDE)
 
-$(NAME) : $(OBJECT)
+ifdef WITH_BONUS
+	OBJ = $(OBJ_M) $(OBJ_B)
+else
+	OBJ = $(OBJ_M)
+endif
+
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDE)
+
+$(NAME) : $(OBJ)
 	ar rsc $@ $^
 
 all : $(NAME)
+	sleep 1
+
+bonus :
+	make WITH_BONUS=1
 
 clean:
-	rm -rf $(OBJECT)
+	rm -rf $(OBJ_M) $(OBJ_B)
 
 fclean: clean
 	rm -rf $(NAME)
 
 re : fclean all
 
-.PHONY : clean fclean re all
+.PHONY : clean fclean re all bonus
