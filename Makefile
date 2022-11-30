@@ -6,7 +6,7 @@
 #    By: jinsyang <jinsyang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 17:31:22 by jinsyang          #+#    #+#              #
-#    Updated: 2022/11/29 18:25:15 by jinsyang         ###   ########.fr        #
+#    Updated: 2022/11/30 16:15:37 by jinsyang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,6 @@ $(NAME) : $(OBJ)
 	ar rsc $@ $^
 
 all : $(NAME)
-	sleep 1
 
 bonus :
 	make WITH_BONUS=1
