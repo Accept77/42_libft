@@ -6,7 +6,7 @@
 /*   By: jinsyang <jinsyang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:13:30 by jinsyang          #+#    #+#             */
-/*   Updated: 2022/11/29 20:07:24 by jinsyang         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:36:26 by jinsyang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,19 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (start >= len_s)
 	{
 		sub = (char *)malloc(sizeof(char) * 1);
+		if (!sub)
+			return (NULL);
 		sub[0] = '\0';
 		return (sub);
 	}
-	if (len_s < len)
+	if (len_s < len || len_s - start < len)
 	{
-		sub = (char *)malloc(sizeof(char) * (len_s + 1));
 		len = len_s - start;
+		sub = (char *)malloc(sizeof(char) * (len + 1));
 	}
 	else
 		sub = (char *)malloc(sizeof(char) * (len + 1));
-	if (!(sub))
+	if (!sub)
 		return (NULL);
 	ft_strlcpy(sub, s + start, len + 1);
 	return (sub);

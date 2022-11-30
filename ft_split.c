@@ -6,40 +6,51 @@
 /*   By: jinsyang <jinsyang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:19:15 by jinsyang          #+#    #+#             */
-/*   Updated: 2022/11/28 13:27:23 by jinsyang         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:10:23 by jinsyang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_free(char **result, size_t index)
+static size_t	ft_word(char const *s, char c, size_t i)
 {
-	while (index >= 0)
+	size_t	j;
+
+	j = 0;
+	while (s[i + j] != c && s[i + j] != '\0')
+				j++;
+	return (j);
+}
+
+static void	ft_free(char **re, size_t index)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < index)
 	{
-		free(result[index]);
-		index--;
+		free(re[i]);
+		i++;
 	}
-	free(result);
-	return (1);
 }
 
 static size_t	ft_word_count(char const *s, char c)
 {
-	size_t	l;
-	size_t	word;
+	size_t	i;
+	size_t	words;
 
-	l = 0;
-	word = 0;
-	while (s[l])
+	i = 0;
+	words = 0;
+	while (s[i])
 	{
-		if (s[l] != c && (s[l + 1] == c || s[l + 1] == '\0'))
-			word++;
-		l++;
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+			words++;
+		i++;
 	}
-	return (word);
+	return (words);
 }
 
-static void	ft_fill(char const *s, char c, char **result, size_t *flag)
+static int	ft_fill(char const *s, char c, char **re)
 {
 	size_t	i;
 	size_t	j;
@@ -53,35 +64,37 @@ static void	ft_fill(char const *s, char c, char **result, size_t *flag)
 			i++;
 		else
 		{
-			j = 0;
-			while (s[i + j] != c && s[i + j] != '\0')
-				j++;
-			result[index] = (char *)malloc(sizeof(char) * (j + 1));
-			if (!(result[index]))
-				*flag = ft_free(result, index);
-			ft_strlcpy(result[index], s + i, j + 1);
+			j = ft_word(s, c, i);
+			re[index] = (char *)malloc(sizeof(char) * (j + 1));
+			if (!re[index])
+			{
+				ft_free(re, index);
+				return (1);
+			}
+			ft_strlcpy(re[index], s + i, j + 1);
 			i += j;
 			index++;
 		}
 	}
+	return (0);
 }
 
 char	**ft_split(char const *s, char c)
 {
+	char	**re;
 	size_t	words;
-	char	**result;
 	size_t	flag;
 
-	if (!s)
-		return (NULL);
 	words = ft_word_count(s, c);
-	result = (char **)malloc(sizeof(char *) * (words + 1));
-	flag = 0;
-	if (!result)
+	re = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!re)
 		return (NULL);
-	result[words] = 0;
-	ft_fill(s, c, result, &flag);
+	flag = ft_fill(s, c, re);
 	if (flag == 1)
+	{
+		free(re);
 		return (NULL);
-	return (result);
+	}
+	re[words] = NULL;
+	return (re);
 }

@@ -6,7 +6,7 @@
 /*   By: jinsyang <jinsyang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 12:30:43 by jinsyang          #+#    #+#             */
-/*   Updated: 2022/11/24 15:28:26 by jinsyang         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:50:57 by jinsyang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	end;
 	size_t	total_len;
 
-	if (!set)
-		return ((char *)s1);
 	start = 0;
 	end = ft_strlen(s1);
 	while (is_set(s1[start], set))
@@ -42,6 +40,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (start == ft_strlen(s1))
 	{
 		result = (char *)malloc(sizeof(char) * 1);
+		if (!result)
+			return (NULL);
 		result[0] = '\0';
 		return (result);
 	}
