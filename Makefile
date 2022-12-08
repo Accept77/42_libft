@@ -6,7 +6,7 @@
 #    By: jinsyang <jinsyang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 17:31:22 by jinsyang          #+#    #+#              #
-#    Updated: 2022/11/30 16:15:37 by jinsyang         ###   ########.fr        #
+#    Updated: 2022/12/08 12:45:55 by jinsyang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,17 +65,14 @@ OBJ_M = $(SRC_M:.c=.o)
 
 OBJ_B = $(SRC_B:.c=.o)
 
-INCLUDE = ./libft.h
-
-
 ifdef WITH_BONUS
 	OBJ = $(OBJ_M) $(OBJ_B)
 else
 	OBJ = $(OBJ_M)
 endif
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDE)
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJ)
 	ar rsc $@ $^
@@ -83,7 +80,7 @@ $(NAME) : $(OBJ)
 all : $(NAME)
 
 bonus :
-	make WITH_BONUS=1
+	make WITH_BONUS=1 all
 
 clean:
 	rm -rf $(OBJ_M) $(OBJ_B)
@@ -91,6 +88,8 @@ clean:
 fclean: clean
 	rm -rf $(NAME)
 
-re : fclean all
+re :
+	make fclean
+	make all
 
 .PHONY : clean fclean re all bonus
